@@ -1,0 +1,1 @@
+{"buildCommand":"npm run build","outputDirectory":"public","functions":{"api/check.js":{"maxDuration":60,"includeFiles":"lib/**"}}}

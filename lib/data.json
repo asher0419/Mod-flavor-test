@@ -1,0 +1,1649 @@
+{
+  "banned": [
+    {
+      "zh": "香蘭素",
+      "en": "Vanillin",
+      "formula": "C8H8O3",
+      "cas": [
+        "121-33-5"
+      ],
+      "originalCAS": "121-33-5",
+      "row": 2
+    },
+    {
+      "zh": "乙基香蘭素",
+      "en": "Ethyl Vanillin",
+      "formula": "C9H10O3",
+      "cas": [
+        "121-32-4"
+      ],
+      "originalCAS": "121-32-4",
+      "row": 3
+    },
+    {
+      "zh": "麥芽醇",
+      "en": "Maltol",
+      "formula": "C6H6O3",
+      "cas": [
+        "118-71-8"
+      ],
+      "originalCAS": "118-71-8",
+      "row": 4
+    },
+    {
+      "zh": "乙基麥芽醇",
+      "en": "Ethyl Maltol",
+      "formula": "C7H8O3",
+      "cas": [
+        "4940-11-8"
+      ],
+      "originalCAS": "4940-11-8 ",
+      "row": 5
+    },
+    {
+      "zh": "苯甲醛",
+      "en": "Benzaldehyde",
+      "formula": "C7H6O",
+      "cas": [
+        "100-52-7"
+      ],
+      "originalCAS": "100-52-7",
+      "row": 6
+    },
+    {
+      "zh": "苯甲醇",
+      "en": "Benzyl Alcohol",
+      "formula": "C7H8O",
+      "cas": [
+        "100-51-6"
+      ],
+      "originalCAS": "100-51-6",
+      "row": 7
+    },
+    {
+      "zh": "乙醯基吡嗪",
+      "en": "Acetyl Pyrazine",
+      "formula": "C6H6N2O",
+      "cas": [
+        "22047-25-2"
+      ],
+      "originalCAS": "22047-25-2",
+      "row": 8
+    },
+    {
+      "zh": "甲基環戊烯醇酮",
+      "en": "Methyl Cyclopentenolone (MCP)",
+      "formula": "C6H8O2",
+      "cas": [
+        "765-70-8",
+        "80-71-7"
+      ],
+      "originalCAS": "765-70-8或80-71-7",
+      "row": 9
+    },
+    {
+      "zh": "乙酸乙酯",
+      "en": "Ethyl acetate",
+      "formula": "C4H8O2",
+      "cas": [
+        "141-78-6"
+      ],
+      "originalCAS": "141-78-6",
+      "row": 10
+    },
+    {
+      "zh": "薄荷醇",
+      "en": "Menthol",
+      "formula": "C10H20O",
+      "cas": [
+        "89-78-1"
+      ],
+      "originalCAS": "89-78-1",
+      "row": 11
+    },
+    {
+      "zh": "薄荷酮",
+      "en": "Menthone",
+      "formula": "C10H18O",
+      "cas": [
+        "89-80-5"
+      ],
+      "originalCAS": " 89-80-5",
+      "row": 12
+    },
+    {
+      "zh": "肉桂醛",
+      "en": "Cinnamaldehyde",
+      "formula": "C9H8O",
+      "cas": [
+        "104-55-2"
+      ],
+      "originalCAS": "104-55-2",
+      "row": 13
+    },
+    {
+      "zh": "丁酸乙酯",
+      "en": "Ethyl butyrate",
+      "formula": "C6H12O2",
+      "cas": [
+        "105-54-4"
+      ],
+      "originalCAS": "105-54-4",
+      "row": 14
+    },
+    {
+      "zh": "苯乙酸",
+      "en": "Phenylacetic acid",
+      "formula": "C8H8O2",
+      "cas": [
+        "103-82-2"
+      ],
+      "originalCAS": "103-82-2",
+      "row": 15
+    },
+    {
+      "zh": "壬酸內酯",
+      "en": "Nonalactone",
+      "formula": "C9H16O2",
+      "cas": [
+        "104-61-0",
+        "3301-94-8"
+      ],
+      "originalCAS": "104-61-0 (γ)\n3301-94-8 (δ)",
+      "row": 16
+    },
+    {
+      "zh": "3-羥基-2-丁酮",
+      "en": "Acetoin",
+      "formula": "C4H8O2",
+      "cas": [
+        "513-86-0"
+      ],
+      "originalCAS": "513-86-0",
+      "row": 17
+    },
+    {
+      "zh": "苯乙酮",
+      "en": "Acetophenone",
+      "formula": "C8H8O",
+      "cas": [
+        "98-86-2"
+      ],
+      "originalCAS": "98-86-2",
+      "row": 18
+    },
+    {
+      "zh": "向日葵花醛",
+      "en": "Piperonyl aldehyde",
+      "formula": "C8H6O3",
+      "cas": [
+        "120-57-0"
+      ],
+      "originalCAS": "120-57-0",
+      "row": 19
+    },
+    {
+      "zh": "紫羅蘭酮",
+      "en": "Ionone",
+      "formula": "C13H20O",
+      "cas": [
+        "127-41-3",
+        "79-77-6",
+        "79-76-5"
+      ],
+      "originalCAS": "127-41-3 (α)\n79-77-6(β)\n79-76-5 (γ)",
+      "row": 20
+    },
+    {
+      "zh": "大馬酮",
+      "en": "Damascenone",
+      "formula": "C13H18O",
+      "cas": [
+        "23696-85-7"
+      ],
+      "originalCAS": "23696-85-7 (β)",
+      "row": 21
+    },
+    {
+      "zh": "苯乙醇",
+      "en": "Phenethyl alcohol",
+      "formula": "C8H10O",
+      "cas": [
+        "60-12-8"
+      ],
+      "originalCAS": "60-12-8",
+      "row": 22
+    },
+    {
+      "zh": "安息香",
+      "en": "Benzoin",
+      "formula": "C14H12O2",
+      "cas": [
+        "119-53-9"
+      ],
+      "originalCAS": "119-53-9",
+      "row": 23
+    },
+    {
+      "zh": "2-甲基丁酸",
+      "en": "2-Methylbutanoic acid",
+      "formula": "C5H10O2",
+      "cas": [
+        "116-53-0"
+      ],
+      "originalCAS": "116-53-0",
+      "row": 24
+    },
+    {
+      "zh": "2(5H)-呋喃酮",
+      "en": "2-Furanone",
+      "formula": "C4H4O2",
+      "cas": [
+        "497-23-4"
+      ],
+      "originalCAS": "497-23-4",
+      "row": 25
+    },
+    {
+      "zh": "玫瑰醇",
+      "en": "Rhodinol",
+      "formula": "C10H20O",
+      "cas": [
+        "6812-78-8",
+        "7540-51-4"
+      ],
+      "originalCAS": "6812-78-8  \n7540-51-4",
+      "row": 26
+    },
+    {
+      "zh": "丁酸丁酯",
+      "en": "Butyl butyrate",
+      "formula": "C8H16O2",
+      "cas": [
+        "109-21-7"
+      ],
+      "originalCAS": "109-21-7",
+      "row": 27
+    },
+    {
+      "zh": "異丁酸",
+      "en": "Isobutyric acid",
+      "formula": "C4H8O2",
+      "cas": [
+        "79-31-2"
+      ],
+      "originalCAS": "79-31-2",
+      "row": 28
+    }
+  ],
+  "known": [
+    {
+      "zh": "呋喃酮",
+      "en": "Furaneol 3(2H)",
+      "formula": "C6H8O3",
+      "cas": [
+        "3658-77-3"
+      ],
+      "row": 2
+    },
+    {
+      "zh": "覆盆子酮",
+      "en": "Raspberry ketone",
+      "formula": "C10H12O2",
+      "cas": [
+        "5471-51-2"
+      ],
+      "row": 3
+    },
+    {
+      "zh": "順式茉莉酮",
+      "en": "cis-Jasmone",
+      "formula": "C11H16O",
+      "cas": [
+        "488-10-8"
+      ],
+      "row": 4
+    },
+    {
+      "zh": "二氫茉莉酮",
+      "en": "Dihydrojasmone",
+      "formula": "C11H18O",
+      "cas": [
+        "1128-08-1"
+      ],
+      "row": 5
+    },
+    {
+      "zh": "二氫茉莉酮酸甲酯",
+      "en": "Hedione",
+      "formula": "C13H22O3",
+      "cas": [
+        "24851-98-7"
+      ],
+      "row": 6
+    },
+    {
+      "zh": "異甲基紫羅蘭酮",
+      "en": "Isomethyl Ionone (Alpha)",
+      "formula": "C14H22O",
+      "cas": [
+        "127-51-5"
+      ],
+      "row": 7
+    },
+    {
+      "zh": "乙酸苄酯",
+      "en": "Benzyl Acetate",
+      "formula": "C9H10O2",
+      "cas": [
+        "140-11-4"
+      ],
+      "row": 8
+    },
+    {
+      "zh": "苯甲酸乙酯",
+      "en": "Ethyl Benzoate",
+      "formula": "C9H10O2",
+      "cas": [
+        "93-89-0"
+      ],
+      "row": 9
+    },
+    {
+      "zh": "苯乙酸乙酯",
+      "en": "Ethyl Phenyl Acetate",
+      "formula": "C10H12O2",
+      "cas": [
+        "101-97-3"
+      ],
+      "row": 10
+    },
+    {
+      "zh": "乙酸苯乙酯",
+      "en": "Phenethyl Acetate",
+      "formula": "C10H12O2",
+      "cas": [
+        "103-45-7"
+      ],
+      "row": 11
+    },
+    {
+      "zh": "苯乙酸苯乙酯",
+      "en": "Phenethyl Phenylacetate",
+      "formula": "C16H16O2",
+      "cas": [
+        "102-20-5"
+      ],
+      "row": 12
+    },
+    {
+      "zh": "白花醇",
+      "en": "Florosa",
+      "formula": "C10H20O2",
+      "cas": [
+        "63500-71-0"
+      ],
+      "row": 13
+    },
+    {
+      "zh": "芳樟醇",
+      "en": "Linalool",
+      "formula": "C10H18O",
+      "cas": [
+        "78-70-6"
+      ],
+      "row": 14
+    },
+    {
+      "zh": "四氫芳樟醇",
+      "en": "Tetrahydrolinalool",
+      "formula": "C10H22O",
+      "cas": [
+        "78-69-3"
+      ],
+      "row": 15
+    },
+    {
+      "zh": "乙基芳樟醇",
+      "en": "Ethyl Linalool",
+      "formula": "C11H20O",
+      "cas": [
+        "10339-55-6"
+      ],
+      "row": 16
+    },
+    {
+      "zh": "氧化芳樟醇",
+      "en": "Linalool oxide",
+      "formula": "C10H18O2",
+      "cas": [
+        "1365-19-1"
+      ],
+      "row": 17
+    },
+    {
+      "zh": "橙花叔醇",
+      "en": "Nerolidol",
+      "formula": "C15H26O",
+      "cas": [
+        "7212-44-4"
+      ],
+      "row": 18
+    },
+    {
+      "zh": "橙花醇",
+      "en": "Nerol",
+      "formula": "C10H18O",
+      "cas": [
+        "106-25-2"
+      ],
+      "row": 19
+    },
+    {
+      "zh": "香葉醇(牻牛兒醇)",
+      "en": "Geraniol",
+      "formula": "C10H18O",
+      "cas": [
+        "106-24-1"
+      ],
+      "row": 20
+    },
+    {
+      "zh": "金合歡醇",
+      "en": "Farnesol",
+      "formula": "C15H26O",
+      "cas": [
+        "4602-84-0"
+      ],
+      "row": 21
+    },
+    {
+      "zh": "二氫月桂烯醇",
+      "en": "Dihydromyrcenol",
+      "formula": "C10H20O",
+      "cas": [
+        "18479-58-8"
+      ],
+      "row": 22
+    },
+    {
+      "zh": "二甲基庚醇",
+      "en": "Dimethyl Heptanol",
+      "formula": "C9H20O",
+      "cas": [
+        "108-82-7"
+      ],
+      "row": 23
+    },
+    {
+      "zh": "萜品烯",
+      "en": "Terpinene (Alpha)",
+      "formula": "C10H16",
+      "cas": [
+        "99-86-5"
+      ],
+      "row": 24
+    },
+    {
+      "zh": "玫瑰醚",
+      "en": "Rose Oxide",
+      "formula": "C10H18O",
+      "cas": [
+        "16409-43-1"
+      ],
+      "row": 25
+    },
+    {
+      "zh": "茉莉素",
+      "en": "Jasmea",
+      "formula": "C23H27NO2",
+      "cas": [
+        "67924-13-4"
+      ],
+      "row": 26
+    },
+    {
+      "zh": "牡丹腈",
+      "en": "Peonile",
+      "formula": "C14H15N",
+      "cas": [
+        "10461-98-0"
+      ],
+      "row": 27
+    },
+    {
+      "zh": "癒創木酚",
+      "en": "Guaiacol",
+      "formula": "C7H8O2",
+      "cas": [
+        "90-05-1"
+      ],
+      "row": 28
+    },
+    {
+      "zh": "合成橡木苔",
+      "en": "Veramoss",
+      "formula": "C10H12O4",
+      "cas": [
+        "4707-47-5"
+      ],
+      "row": 29
+    },
+    {
+      "zh": "麝香T",
+      "en": "Ethylene Brassylate",
+      "formula": "C15H26O4",
+      "cas": [
+        "105-95-3"
+      ],
+      "row": 30
+    },
+    {
+      "zh": "水楊酸苄酯",
+      "en": "Benzyl Salicylate",
+      "formula": "C14H12O3",
+      "cas": [
+        "118-58-1"
+      ],
+      "row": 31
+    },
+    {
+      "zh": "水楊酸戊酯",
+      "en": "Amyl Salicylate",
+      "formula": "C12H16O3",
+      "cas": [
+        "2050-08-0"
+      ],
+      "row": 32
+    },
+    {
+      "zh": "水楊酸己酯",
+      "en": "Hexyl Salicylate",
+      "formula": "C13H18O3",
+      "cas": [
+        "6259-76-3"
+      ],
+      "row": 33
+    },
+    {
+      "zh": "乙酸芳樟酯",
+      "en": "Linalyl Acetate",
+      "formula": "C12H20O2",
+      "cas": [
+        "115-95-7"
+      ],
+      "row": 34
+    },
+    {
+      "zh": "乙酸香葉酯",
+      "en": "Geranyl Acetate",
+      "formula": "C12H20O2",
+      "cas": [
+        "105-87-3"
+      ],
+      "row": 35
+    },
+    {
+      "zh": "乙酸薄荷酯",
+      "en": "Menthyl Acetate",
+      "formula": "C12H22O2",
+      "cas": [
+        "89-48-5"
+      ],
+      "row": 36
+    },
+    {
+      "zh": "乙酸橙花酯",
+      "en": "Neryl Acetate",
+      "formula": "C12H20O2",
+      "cas": [
+        "141-12-8"
+      ],
+      "row": 37
+    },
+    {
+      "zh": "乙酸蘇合香酯",
+      "en": "Styrallyl Acetate",
+      "formula": "C10H12O2",
+      "cas": [
+        "93-92-5"
+      ],
+      "row": 38
+    },
+    {
+      "zh": "乙酸覆盆子酮酯",
+      "en": "Raspberry Ketone Acetate",
+      "formula": "C12H14O3",
+      "cas": [
+        "3572-06-3"
+      ],
+      "row": 39
+    },
+    {
+      "zh": "異丁酸香蘭酯",
+      "en": "Vanillin Isobutyrate",
+      "formula": "C12H14O4",
+      "cas": [
+        "20665-85-4"
+      ],
+      "row": 40
+    },
+    {
+      "zh": "異戊酸丁酯",
+      "en": "Butyl Isovalerate",
+      "formula": "C9H18O2",
+      "cas": [
+        "109-19-3"
+      ],
+      "row": 41
+    },
+    {
+      "zh": "丁酸二甲基苄基原酯",
+      "en": "Dimethylbenzylcarbinyl Butyrate",
+      "formula": "C14H20O2",
+      "cas": [
+        "10094-34-5"
+      ],
+      "row": 42
+    },
+    {
+      "zh": "鄰氨基苯甲酸甲酯",
+      "en": "Methyl Anthranilate",
+      "formula": "C8H9NO2",
+      "cas": [
+        "134-20-3"
+      ],
+      "row": 43
+    },
+    {
+      "zh": "格蓬酯",
+      "en": "Allyl Amyl Glycolate",
+      "formula": "C10H18O3",
+      "cas": [
+        "67634-00-8"
+      ],
+      "row": 44
+    },
+    {
+      "zh": "茉莉酯",
+      "en": "JasMonyl",
+      "formula": "C11H22O3",
+      "cas": [
+        "1322-17-4"
+      ],
+      "row": 45
+    },
+    {
+      "zh": "菠蘿酯",
+      "en": "Allyl Cyclohexyl Propionate",
+      "formula": "C12H20O2",
+      "cas": [
+        "2705-87-5"
+      ],
+      "row": 46
+    },
+    {
+      "zh": "蘋果酯",
+      "en": "Fructone",
+      "formula": "C8H14O4",
+      "cas": [
+        "6413-10-1"
+      ],
+      "row": 47
+    },
+    {
+      "zh": "蘋果酯B",
+      "en": "Fraistone",
+      "formula": "C9H16O4",
+      "cas": [
+        "6290-17-1"
+      ],
+      "row": 48
+    },
+    {
+      "zh": "癸內酯",
+      "en": "Decalactone (Gamma)",
+      "formula": "C10H18O2",
+      "cas": [
+        "706-14-9"
+      ],
+      "row": 49
+    },
+    {
+      "zh": "十二內酯",
+      "en": "Dodecalactone (Gamma)",
+      "formula": "C12H22O2",
+      "cas": [
+        "2305-05-7"
+      ],
+      "row": 50
+    },
+    {
+      "zh": "桃醛(C-14)",
+      "en": "Undecalactone (Gamma)",
+      "formula": "C11H20O2",
+      "cas": [
+        "104-67-6"
+      ],
+      "row": 51
+    },
+    {
+      "zh": "苯乙醛",
+      "en": "Phenyl Acetaldehyde",
+      "formula": "C8H8O",
+      "cas": [
+        "122-78-1"
+      ],
+      "row": 52
+    },
+    {
+      "zh": "苯乙二甲縮醛",
+      "en": "Phenylacetaldehyde dimethyl acetal (PADMA)\n",
+      "formula": "C10H14O2",
+      "cas": [
+        "101-48-4"
+      ],
+      "row": 53
+    },
+    {
+      "zh": "仙客來醛",
+      "en": "Cyclamen Aldehyde",
+      "formula": "C13H18O",
+      "cas": [
+        "103-95-7"
+      ],
+      "row": 54
+    },
+    {
+      "zh": "甜橙醛",
+      "en": "Sinensal (Beta)",
+      "formula": "C15H22O",
+      "cas": [
+        "60066-88-8"
+      ],
+      "row": 55
+    },
+    {
+      "zh": "檸檬醛",
+      "en": "Citral",
+      "formula": "C10H16O",
+      "cas": [
+        "5392-40-5"
+      ],
+      "row": 56
+    },
+    {
+      "zh": "甜瓜醛",
+      "en": "Melonal",
+      "formula": "C9H16O",
+      "cas": [
+        "106-72-9"
+      ],
+      "row": 57
+    },
+    {
+      "zh": "鈴蘭醛",
+      "en": "Lilial",
+      "formula": "C14H20O",
+      "cas": [
+        "80-54-6"
+      ],
+      "row": 58
+    },
+    {
+      "zh": "新鈴蘭醛",
+      "en": "Lyral",
+      "formula": "C13H22O2",
+      "cas": [
+        "31906-04-4"
+      ],
+      "row": 59
+    },
+    {
+      "zh": "海風醛",
+      "en": "Floralozone",
+      "formula": "C13H18O",
+      "cas": [
+        "67634-15-5"
+      ],
+      "row": 60
+    },
+    {
+      "zh": "戊基肉桂醛",
+      "en": "Amyl  Cinnamic Aldehyde (Alpha)",
+      "formula": "C14H18O",
+      "cas": [
+        "122-40-7"
+      ],
+      "row": 61
+    },
+    {
+      "zh": "己基肉桂醛",
+      "en": "Hexyl Cinnamic Aldehyde(HCA)",
+      "formula": "C15H20O",
+      "cas": [
+        "101-86-0"
+      ],
+      "row": 62
+    },
+    {
+      "zh": "辛醛(C-8)",
+      "en": "Octanal",
+      "formula": "C8H16O",
+      "cas": [
+        "124-13-0"
+      ],
+      "row": 63
+    },
+    {
+      "zh": "壬醛(C-9)",
+      "en": "Nonanal",
+      "formula": "C9H18O",
+      "cas": [
+        "124-19-6"
+      ],
+      "row": 64
+    },
+    {
+      "zh": "癸醛(C-10)",
+      "en": "Decanal",
+      "formula": "C10H20O",
+      "cas": [
+        "112-31-2"
+      ],
+      "row": 65
+    },
+    {
+      "zh": "十一醛(C-11)",
+      "en": "Undecanal",
+      "formula": "C11H22O",
+      "cas": [
+        "112-44-7"
+      ],
+      "row": 66
+    },
+    {
+      "zh": "月桂醛(C-12)",
+      "en": "Lauraldehyde",
+      "formula": "C12H24O",
+      "cas": [
+        "112-54-9"
+      ],
+      "row": 67
+    },
+    {
+      "zh": "草莓醛(C-16)",
+      "en": "Ethyl Methylphenylglycidate",
+      "formula": "C12H14O3",
+      "cas": [
+        "77-83-8"
+      ],
+      "row": 68
+    },
+    {
+      "zh": "吲哚",
+      "en": "Indole",
+      "formula": "C8H7N",
+      "cas": [
+        "120-72-9"
+      ],
+      "row": 69
+    },
+    {
+      "zh": "薄荷酮甘油縮酮",
+      "en": "Menthone 1,2-Glycerol Ketal",
+      "formula": "C13H24O3",
+      "cas": [
+        "563187-91-7"
+      ],
+      "row": 70
+    },
+    {
+      "zh": "乳酸薄荷酯",
+      "en": "Menthyl Lactate",
+      "formula": "C13H24O3",
+      "cas": [
+        "61597-98-6"
+      ],
+      "row": 71
+    },
+    {
+      "zh": "冰片",
+      "en": "Borneol",
+      "formula": "C10H18O",
+      "cas": [
+        "507-70-0"
+      ],
+      "row": 72
+    },
+    {
+      "zh": "甲酸香葉酯",
+      "en": "Geranyl Formate",
+      "formula": "C11H18O2",
+      "cas": [
+        "105-86-2"
+      ],
+      "row": 73
+    },
+    {
+      "zh": "乙酸葉醇酯",
+      "en": "cis-3-Hexenyl Acetate",
+      "formula": "C8H14O2",
+      "cas": [
+        "3681-71-8"
+      ],
+      "row": 74
+    },
+    {
+      "zh": "乙酸松油酯",
+      "en": "Terpinyl Acetate",
+      "formula": "C12H20O2",
+      "cas": [
+        "80-26-2"
+      ],
+      "row": 75
+    },
+    {
+      "zh": "乙酸乙酯",
+      "en": "Ethyl Acetate",
+      "formula": "C4H8O2",
+      "cas": [
+        "141-78-6"
+      ],
+      "row": 76
+    },
+    {
+      "zh": "乙酸丁酯",
+      "en": "n-Butyl Acetate",
+      "formula": "C6H12O2",
+      "cas": [
+        "123-86-4"
+      ],
+      "row": 77
+    },
+    {
+      "zh": "乙酸異戊酯",
+      "en": "Isoamyl Acetate",
+      "formula": "C7H14O2",
+      "cas": [
+        "123-92-2"
+      ],
+      "row": 78
+    },
+    {
+      "zh": "乙酸異壬酯",
+      "en": "Nonisyl Acetate",
+      "formula": "C11H22O2",
+      "cas": [
+        "58430-94-7"
+      ],
+      "row": 79
+    },
+    {
+      "zh": "乙酸異冰片酯",
+      "en": "Isobornyl Acetate",
+      "formula": "C12H20O2",
+      "cas": [
+        "125-12-2"
+      ],
+      "row": 80
+    },
+    {
+      "zh": "丁酸異戊酯",
+      "en": "Isoamyl Butyrate",
+      "formula": "C9H18O2",
+      "cas": [
+        "106-27-4"
+      ],
+      "row": 81
+    },
+    {
+      "zh": "丙酸苄酯",
+      "en": "Benzyl Propionate",
+      "formula": "C10H12O2",
+      "cas": [
+        "122-63-4"
+      ],
+      "row": 82
+    },
+    {
+      "zh": "丁酸苄酯",
+      "en": "Benzyl Butyrate",
+      "formula": "C11H14O2",
+      "cas": [
+        "103-37-7"
+      ],
+      "row": 83
+    },
+    {
+      "zh": "肉桂酸苄酯",
+      "en": "Benzyl Cinnamate",
+      "formula": "C16H14O2",
+      "cas": [
+        "103-41-3"
+      ],
+      "row": 84
+    },
+    {
+      "zh": "丁酸乙酯",
+      "en": "Ethyl Butyrate",
+      "formula": "C6H12O2",
+      "cas": [
+        "105-54-4"
+      ],
+      "row": 85
+    },
+    {
+      "zh": "庚酸乙酯",
+      "en": "Ethyl Heptanoate",
+      "formula": "C9H18O2",
+      "cas": [
+        "106-30-9"
+      ],
+      "row": 86
+    },
+    {
+      "zh": "壬酸乙酯",
+      "en": "Ethyl Nonanoate",
+      "formula": "C11H22O2",
+      "cas": [
+        "123-29-5"
+      ],
+      "row": 87
+    },
+    {
+      "zh": "漿果乙酯",
+      "en": "Fructalate",
+      "formula": "C12H20O4",
+      "cas": [
+        "72903-27-6"
+      ],
+      "row": 88
+    },
+    {
+      "zh": "特木倍醇",
+      "en": "Timberol",
+      "formula": "C15H30O",
+      "cas": [
+        "70788-30-6"
+      ],
+      "row": 89
+    },
+    {
+      "zh": "甲基癸烯醇",
+      "en": "Undecavertol",
+      "formula": "C11H22O",
+      "cas": [
+        "81782-77-6"
+      ],
+      "row": 90
+    },
+    {
+      "zh": "葉青酯",
+      "en": "Methyl 2-Octynoate",
+      "formula": "C9H14O2",
+      "cas": [
+        "111-12-6"
+      ],
+      "row": 91
+    },
+    {
+      "zh": "羥基香茅醛",
+      "en": "Hydroxycitronellal",
+      "formula": "C10H20O2",
+      "cas": [
+        "107-75-5"
+      ],
+      "row": 92
+    },
+    {
+      "zh": "新洋茉莉醛",
+      "en": "Helional",
+      "formula": "C11H12O3",
+      "cas": [
+        "1205-17-0"
+      ],
+      "row": 93
+    },
+    {
+      "zh": "環己酮",
+      "en": "Cyclohexanone",
+      "formula": "C6H10O",
+      "cas": [
+        "108-94-1"
+      ],
+      "row": 94
+    },
+    {
+      "zh": "左旋香芹酮",
+      "en": "l-Carvone",
+      "formula": "C10H14O",
+      "cas": [
+        "6485-40-1"
+      ],
+      "row": 95
+    },
+    {
+      "zh": "龍涎酮",
+      "en": "Iso E Super",
+      "formula": "C16H26O",
+      "cas": [
+        "54464-57-2"
+      ],
+      "row": 96
+    },
+    {
+      "zh": "降龍涎香醚",
+      "en": "Ambroxan",
+      "formula": "C16H28O",
+      "cas": [
+        "6790-58-5"
+      ],
+      "row": 97
+    },
+    {
+      "zh": "香茅腈",
+      "en": "Citronellyl Nitrile",
+      "formula": "C10H17N",
+      "cas": [
+        "51566-62-2"
+      ],
+      "row": 98
+    },
+    {
+      "zh": "橙花素",
+      "en": "Nerolin",
+      "formula": "C11H10O",
+      "cas": [
+        "93-04-9"
+      ],
+      "row": 99
+    },
+    {
+      "zh": "佳樂麝香",
+      "en": "Galaxolide",
+      "formula": "C18H26O",
+      "cas": [
+        "1222-05-5"
+      ],
+      "row": 100
+    },
+    {
+      "zh": "琥珀核心",
+      "en": "Amber Core",
+      "formula": "C14H28O2",
+      "cas": [
+        "139504-68-0"
+      ],
+      "row": 101
+    },
+    {
+      "zh": "檀香210",
+      "en": "Sandalore",
+      "formula": "C14H26O",
+      "cas": [
+        "65113-99-7"
+      ],
+      "row": 102
+    },
+    {
+      "zh": "聚檀香醇",
+      "en": "Polysantol",
+      "formula": "C15H26O",
+      "cas": [
+        "107898-54-4"
+      ],
+      "row": 103
+    },
+    {
+      "zh": "曼可羅蘭",
+      "en": "Magnolan",
+      "formula": "C13H16O2",
+      "cas": [
+        "27606-09-3"
+      ],
+      "row": 104
+    },
+    {
+      "zh": "蒎烯",
+      "en": "Pinene (Alpha)",
+      "formula": "C10H16",
+      "cas": [
+        "80-56-8"
+      ],
+      "row": 105
+    },
+    {
+      "zh": "月桂烯",
+      "en": "Myrcene",
+      "formula": "C10H16",
+      "cas": [
+        "123-35-3"
+      ],
+      "row": 106
+    },
+    {
+      "zh": "環十五內酯",
+      "en": "Exaltolide",
+      "formula": "C15H28O2",
+      "cas": [
+        "106-02-5"
+      ],
+      "row": 107
+    },
+    {
+      "zh": "香紫蘇內酯",
+      "en": "Sclareolide",
+      "formula": "C16H26O2",
+      "cas": [
+        "564-20-5"
+      ],
+      "row": 108
+    },
+    {
+      "zh": "庚酸烯丙酯",
+      "en": "Allyl Heptanoate",
+      "formula": "C10H18O2",
+      "cas": [
+        "142-19-8"
+      ],
+      "row": 109
+    },
+    {
+      "zh": "苯乙酸對甲酚酯(2%)",
+      "en": "p-Cresyl Phenylacetate",
+      "formula": "C15H14O2",
+      "cas": [
+        "101-94-0"
+      ],
+      "row": 110
+    },
+    {
+      "zh": "乙酸對甲酚酯",
+      "en": "p-Cresyl Acetate",
+      "formula": "C9H10O2",
+      "cas": [
+        "140-39-6"
+      ],
+      "row": 111
+    },
+    {
+      "zh": "乙酸鄰叔丁基環己酯",
+      "en": "OTBCHA",
+      "formula": "C12H22O2",
+      "cas": [
+        "88-41-5"
+      ],
+      "row": 112
+    },
+    {
+      "zh": "乙酸對叔丁基環己酯",
+      "en": "PTBCHA",
+      "formula": "C12H22O2",
+      "cas": [
+        "32210-23-4"
+      ],
+      "row": 113
+    },
+    {
+      "zh": "草莓酸",
+      "en": "Strawberry Acid",
+      "formula": "C6H10O2",
+      "cas": [
+        "3142-72-1"
+      ],
+      "row": 114
+    },
+    {
+      "zh": "香草酸",
+      "en": "Vanillic Acid",
+      "formula": "C8H8O4",
+      "cas": [
+        "121-34-6"
+      ],
+      "row": 115
+    },
+    {
+      "zh": "香草酸乙酯",
+      "en": "Vanillic Acid Ethyl Ester",
+      "formula": "C10H12O4",
+      "cas": [
+        "617-05-0"
+      ],
+      "row": 116
+    },
+    {
+      "zh": "香草醛乙酸酯",
+      "en": "Vanillin Acetate",
+      "formula": "C10H10O4",
+      "cas": [
+        "881-68-5"
+      ],
+      "row": 117
+    },
+    {
+      "zh": "香蘭素1,2-丙二醇缩醛",
+      "en": "Vanillin 1,2-Propylene Glycol Acetal",
+      "formula": "C11H14O4",
+      "cas": [
+        "68527-74-2"
+      ],
+      "row": 118
+    },
+    {
+      "zh": "乙基香蘭素1,2-丙二醇缩醛",
+      "en": "Ethyl Vanillin 1,2-propylene glycol acetal",
+      "formula": "C12H16O4",
+      "cas": [
+        "68527-76-4"
+      ],
+      "row": 119
+    },
+    {
+      "zh": "香茅醇",
+      "en": "Citronellol",
+      "formula": "C10H20O",
+      "cas": [
+        "106-22-9"
+      ],
+      "row": 120
+    },
+    {
+      "zh": "乙酸香茅酯",
+      "en": "Citronellyl Acetate",
+      "formula": "C12H22O2",
+      "cas": [
+        "150-84-5"
+      ],
+      "row": 121
+    },
+    {
+      "zh": "琥珀酸單薄荷酯",
+      "en": "Monomenthyl Succinate",
+      "formula": "C14H24O4",
+      "cas": [
+        "77341-67-4"
+      ],
+      "row": 122
+    },
+    {
+      "zh": "香草醇丁基醚",
+      "en": "\tVanillyl Butyl Ether",
+      "formula": "C12H18O3",
+      "cas": [
+        "82654-98-6"
+      ],
+      "row": 123
+    },
+    {
+      "zh": "肉桂酸甲酯",
+      "en": "Methyl Cinnamate",
+      "formula": "C10H10O2",
+      "cas": [
+        "103-26-4"
+      ],
+      "row": 124
+    },
+    {
+      "zh": "異丁酸麥芽酚酯",
+      "en": "Maltol Isobutyrate",
+      "formula": "C10H12O4",
+      "cas": [
+        "65416-14-0"
+      ],
+      "row": 125
+    },
+    {
+      "zh": "乙酸茴香酯",
+      "en": "p-Anisyl Acetate",
+      "formula": "C10H12O3",
+      "cas": [
+        "104-21-2"
+      ],
+      "row": 126
+    },
+    {
+      "zh": "吐納麝香",
+      "en": "Tonalide",
+      "formula": "C18H26O",
+      "cas": [
+        "1506-02-1"
+      ],
+      "row": 127
+    },
+    {
+      "zh": "枸杞多醣",
+      "en": "Lycium barbarum polysaccharides",
+      "formula": "-",
+      "cas": [],
+      "row": 128
+    },
+    {
+      "zh": "二氫獼猴桃內酯",
+      "en": "Dihydroactinidiolide",
+      "formula": "C11H16O2",
+      "cas": [
+        "15356-74-8"
+      ],
+      "row": 129
+    },
+    {
+      "zh": "異佛爾酮",
+      "en": "Isophorone",
+      "formula": "C9H14O",
+      "cas": [
+        "78-59-1"
+      ],
+      "row": 130
+    },
+    {
+      "zh": "巨豆三烯酮",
+      "en": "Megastigmatrienone",
+      "formula": "C13H18O",
+      "cas": [
+        "13215-88-8"
+      ],
+      "row": 131
+    },
+    {
+      "zh": "新植二烯",
+      "en": "Neophytadiene",
+      "formula": "C20H38",
+      "cas": [
+        "504-96-1"
+      ],
+      "row": 132
+    },
+    {
+      "zh": "糠醇",
+      "en": "Furfuryl Alcohol",
+      "formula": "C5H6O2",
+      "cas": [
+        "98-00-0"
+      ],
+      "row": 133
+    },
+    {
+      "zh": "5-羥甲基糠醛",
+      "en": "5-Hydroxymethyl Furfural",
+      "formula": "C6H6O3",
+      "cas": [
+        "67-47-0"
+      ],
+      "row": 134
+    },
+    {
+      "zh": "茄尼醇",
+      "en": "Solanesol",
+      "formula": "C45H74O",
+      "cas": [
+        "13190-97-1"
+      ],
+      "row": 135
+    },
+    {
+      "zh": "2,5-二甲基吡嗪",
+      "en": "2,5-Dimethylpyrazine",
+      "formula": "C6H8N2",
+      "cas": [
+        "123-32-0"
+      ],
+      "row": 136
+    },
+    {
+      "zh": "茶香酮",
+      "en": "Ketoisophorone",
+      "formula": "C9H12O2",
+      "cas": [
+        "1125-21-9"
+      ],
+      "row": 137
+    },
+    {
+      "zh": "環高呋喃酮",
+      "en": "Homofuraneol",
+      "formula": "C7H10O3",
+      "cas": [
+        "27538-09-6"
+      ],
+      "row": 138
+    },
+    {
+      "zh": "柑橘醛",
+      "en": "Citrathal",
+      "formula": "C14H26O2",
+      "cas": [
+        "147060-73-9"
+      ],
+      "row": 139
+    },
+    {
+      "zh": "威士忌內酯",
+      "en": "Whiskey Lactone",
+      "formula": "C9H16O2",
+      "cas": [
+        "39212-23-2"
+      ],
+      "row": 140
+    },
+    {
+      "zh": "乳酸乙酯",
+      "en": "Ethyl Lactate",
+      "formula": "C5H10O3",
+      "cas": [
+        "97-64-3"
+      ],
+      "row": 141
+    },
+    {
+      "zh": "椰子醛(C-18)",
+      "en": "Nonalactone (Gamma)",
+      "formula": "C9H16O2",
+      "cas": [
+        "104-61-0"
+      ],
+      "row": 142
+    },
+    {
+      "zh": "葉醇",
+      "en": "Cis-3-Hexenol",
+      "formula": "C6H12O",
+      "cas": [
+        "928-96-1"
+      ],
+      "row": 143
+    },
+    {
+      "zh": "女貞醛(席夫鹼)",
+      "en": "Triplal",
+      "formula": "C17H21NO2",
+      "cas": [
+        "68845-02-3"
+      ],
+      "row": 144
+    },
+    {
+      "zh": "5-甲基-5-苯基-3-己酮",
+      "en": "Damascol",
+      "formula": "C13H18O",
+      "cas": [
+        "4927-36-0"
+      ],
+      "row": 145
+    },
+    {
+      "zh": "茉莉吡喃",
+      "en": "Jasmal",
+      "formula": "C12H22O3",
+      "cas": [
+        "18871-14-2"
+      ],
+      "row": 146
+    },
+    {
+      "zh": "櫻花水楊酸酯",
+      "en": "Sakura Salicylate",
+      "formula": "C12H16O4",
+      "cas": [
+        "79915-74-5"
+      ],
+      "row": 147
+    },
+    {
+      "zh": "新玫瑰酯",
+      "en": "Pivarose",
+      "formula": "C13H18O2",
+      "cas": [
+        "67662-96-8"
+      ],
+      "row": 148
+    },
+    {
+      "zh": "乙酸異丁香酚酯",
+      "en": "Acetyl Isoeugenol",
+      "formula": "C12H14O3",
+      "cas": [
+        "93-29-8"
+      ],
+      "row": 149
+    },
+    {
+      "zh": "甲基丹提力士",
+      "en": "Methyl diantilis ",
+      "formula": "C10H14O3",
+      "cas": [
+        "5595-79-9"
+      ],
+      "row": 150
+    },
+    {
+      "zh": "4-異丙基環己醇",
+      "en": "Apo Patchone Coeur",
+      "formula": "C9H18O",
+      "cas": [
+        "4621-04-9"
+      ],
+      "row": 151
+    },
+    {
+      "zh": "二氫香豆素",
+      "en": "Dihydrocoumarin",
+      "formula": "C9H8O2",
+      "cas": [
+        "119-84-6"
+      ],
+      "row": 152
+    },
+    {
+      "zh": "杜鵑酮",
+      "en": "Azarbre",
+      "formula": "C12H20O",
+      "cas": [
+        "68845-36-3"
+      ],
+      "row": 153
+    }
+  ],
+  "version": "2026-10-08",
+  "source": "現有單體香料(9).xlsx"
+}

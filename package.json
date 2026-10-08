@@ -1,0 +1,1 @@
+{"name":"flavor-checker","version":"1.0.0","private":true,"type":"module","engines":{"node":"22.x"},"scripts":{"build":"node scripts/build.mjs","start":"node scripts/dev.mjs","test":"node --test"},"dependencies":{"pdfjs-dist":"6.4.299","tesseract.js":"7.0.0"}}
