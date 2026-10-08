@@ -69,7 +69,7 @@ lib/data.json 的 banned 是 27 項禁用清單、known 是名稱對照。zh／e
 安裝 Node.js 22，在程式資料夾依序執行 npm ci、npm run build、npm test、npm start。設定終端機環境變數 TAVILY_API_KEY，程式不自動載入 .env。瀏覽器開 http://localhost:3000。
 
 ## 驗證與限制
-10 組自動測試通過，包括 TGSC 找到就停止、找不到才查第二來源、雙來源查不到、金鑰錯誤及 CAS 身分核對。PDF 文字擷取與測試掃描頁英文 OCR 曾實測成功，本次保留原功能。
+14 組自動測試通過，包括 TGSC 找到就停止、找不到才查第二來源、雙來源查不到、金鑰錯誤及 CAS 身分核對。PDF 文字擷取與測試掃描頁英文 OCR 曾實測成功，本次保留原功能。
 
 尚未提供真實 Tavily 金鑰，因此未完成兩個網站的實際 Tavily 端到端查詢。網站原始格式變動、拒絕存取或完整文字未回傳，都可能使資料擷取失敗。瀏覽器完整操作與手機排版尚未實測。
 
@@ -80,3 +80,12 @@ lib/data.json 的 banned 是 27 項禁用清單、known 是名稱對照。zh／e
 - https://vercel.com/docs/environment-variables
 - https://mozilla.github.io/pdf.js/getting_started/
 - https://github.com/naptha/tesseract.js
+
+## 分子式擷取修正版
+修正 NMR、Chemical Information 等頁面文字誤併入分子式。僅接受有效元素符號，錯誤分子式不會判成沒問題。支援 TGSC EPI 的 MOL FOR，以及同頁多 CAS 資料區塊。
+
+已查核截圖五筆成分的 TGSC 來源網址，將網址對照內建，用於直接讀取來源（未內建分子式答案）。TGSC 已知頁面直接連線失敗時，使用 Tavily basic Extract 讀取，再做 CAS／分子式核對；仍失敗才搜尋。這會額外消耗 Tavily Extract 額度，費用依其官方規則。搜尋改為只用 CAS／名称，不再附加 molecular formula 等字詞，且優先資料頁。
+
+回歸測試：106-22-9 → C10H20O → 命中薄荷醇與玫瑰醇分子式；123-86-4 → C6H12O2 → 命中丁酸乙酯分子式。使用已查核頁面欄位與模擬 API 回應測試通過，真實 Tavily 帳戶端到端仍待部署後驗證。
+
+舊版的錯誤結果及已匯出的 CSV 請重新排查。
