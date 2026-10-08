@@ -2,7 +2,7 @@ import {lookup} from '../lib/lookup.js';
 import {classify,data} from '../lib/core.js';
 export default async function handler(req,res){
  res.setHeader('Cache-Control','no-store');
- if(req.method==='GET'){res.status(200).json({count:data.banned.length,version:data.version,parserVersion:'2026-10-08-field-v3',searchConfigured:!!process.env.TAVILY_API_KEY});return;}
+ if(req.method==='GET'){res.status(200).json({count:data.banned.length,version:data.version,parserVersion:'2026-10-08-field-v4',searchConfigured:!!process.env.TAVILY_API_KEY});return;}
  if(req.method!=='POST'){res.status(405).json({error:'僅支援 POST'});return;}
  const q=req.body?.query;
  if(typeof q!=='string'||!q.trim()||q.length>200){res.status(400).json({error:'請提供 200 字以内的名稱或 CAS'});return;}
