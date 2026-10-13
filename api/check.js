@@ -5,7 +5,7 @@ import {cloudConfigured,getCloud,learnCloud} from '../lib/cloud-library.js';
 import {lookupLibrary} from '../lib/ingredient-library.js';
 export default async function handler(req,res){
  res.setHeader('Cache-Control','no-store');
- if(req.method==='GET'){res.status(200).json({count:data.banned.length,version:data.version,parserVersion:'2026-10-13-sync-fix-v12',ruleKey:createHash('sha256').update(JSON.stringify(data.banned)).digest('hex').slice(0,12),searchConfigured:!!process.env.TAVILY_API_KEY});return;}
+ if(req.method==='GET'){res.status(200).json({count:data.banned.length,version:data.version,parserVersion:'2026-10-13-manual-fold-v13',ruleKey:createHash('sha256').update(JSON.stringify(data.banned)).digest('hex').slice(0,12),searchConfigured:!!process.env.TAVILY_API_KEY});return;}
  if(req.method!=='POST'){res.status(405).json({error:'僅支援 POST'});return;}
  const q=req.body?.query;
  if(typeof q!=='string'||!q.trim()||q.length>200){res.status(400).json({error:'請提供 200 字以内的名稱或 CAS'});return;}
