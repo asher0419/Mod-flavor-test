@@ -8,3 +8,8 @@ await cp('node_modules/tesseract.js/dist','public/vendor/tesseract',{recursive:t
 const data=JSON.parse(await readFile('lib/data.json','utf8'));
 await writeFile('public/catalog.json',JSON.stringify([...data.known,...data.banned].map(({zh,en,cas})=>({zh,en,cas}))));
 console.log('Static frontend and PDF/OCR assets ready.');
+
+await cp('lib/chemistry.js','public/chemistry.js');
+await writeFile('public/banned.json',JSON.stringify(data.banned));
+
+await cp('public/ingredient-seed.json','lib/ingredient-seed.json');
