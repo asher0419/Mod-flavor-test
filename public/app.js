@@ -1,3 +1,4 @@
+import {installLanguageSwitcher} from './i18n.js';
 import {inputQueries,extractCAS,csvCell} from './util.js';
 import {readCache,writeCache,savedSourceURL} from './cache.js';
 import {recognizeTable,summarizeRows} from './ocr-table.js';
@@ -5,7 +6,7 @@ import {loadLibrary,saveLibrary,mergeRows,lookupLibrary,learnedRow,libraryCSV,pa
 import {readXLSX} from './xlsx-reader.js';
 const browserStorage=(()=>{try{return localStorage;}catch{return null;}})();
 const $=id=>document.getElementById(id);const names={banned:'禁用物質',isomer:'有禁用物質的異構物',clear:'沒問題',mixture:'混合物',unresolved:'查詢未完成',notfound:'未取得成分資料'};
-let results=[],running=false,cancelled=false,filter=null,pdfBusy=false,pdfRows=[],lastOCRText='',ruleKey='',sourceOriginalQuery='',manualResultQuery='';
+let results=[],running=false,cancelled=false,filter=null,pdfBusy=false,pdfRows=[],lastOCRText='',ruleKey='',sourceOriginalQuery='',manualResultQuery='',resultsCollapsed=false;
 let ingredientLibrary=[],bannedRules=[],libraryReady=false,cloudActive=false,cloudHealthy=false,cloudRevision=0,editingCloudCAS=null,editingRevision=null;
 const libraryPromise=Promise.all([fetch('/ingredient-seed.json').then(r=>r.json()),fetch('/banned.json').then(r=>r.json())]).then(([seed,banned])=>{bannedRules=banned;ingredientLibrary=loadLibrary(browserStorage,seed);libraryReady=true;renderLibrary();return refreshCloud();}).catch(()=>{$('libraryStatus').textContent='清單載入失敗，請重新整理；目前仍可網路查詢。';});
 function renderLibrary(){ $('libraryToggle').textContent=`展開／收起已錄入清單（${ingredientLibrary.length}筆）`;$('libraryCount').textContent=`已錄入 ${ingredientLibrary.length} 筆單體 · 禁用清單 ${bannedRules.length} 項`;$('libraryRows').innerHTML=ingredientLibrary.map((r,index)=>`<tr><td>${esc(r.zh)}<small>${esc(r.en)}</small></td><td>${esc(r.cas.join(';'))}</td><td>${esc(r.formula||'缺少分子式')}</td><td>${esc(lookupLibrary([r],r.cas[0]||r.en||r.zh,bannedRules)?.status?names[lookupLibrary([r],r.cas[0]||r.en||r.zh,bannedRules).status]:'待補資料')}</td><td><button class="quiet" data-edit-index="${index}">編輯</button></td></tr>`).join('');}
@@ -14,23 +15,23 @@ function learnResult(record){if(cloudActive){record.notes=[...(record.notes||[])
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safeURL=url=>{try{const u=new URL(url);return u.protocol==='https:'?u.href:null;}catch{return null;}};
 fetch('/api/check').then(r=>r.json()).then(s=>{ruleKey=s.ruleKey?(s.ruleKey+':'+s.parserVersion):'';$('connection').textContent=`${s.count} 項禁用清單 · ${s.parserVersion||s.version}${s.searchConfigured?' · Tavily 搜尋已設定':' · 請設定 TAVILY_API_KEY'}`;}).catch(()=>{$('connection').textContent='無法連線到查詢服務';});
-$('example').onclick=()=>{$('ingredients').value='香蘭素\n乙酸乙酯\n丁酸\n覆盆子酮\nnot-a-real-ingredient-xyz';};
+$('example').onclick=()=>{if(running||pdfBusy)return;results=[];filter=null;resultsCollapsed=false;pdfRows=[];lastOCRText='';sourceOriginalQuery='';manualResultQuery='';for(const id of ['ingredients','pdftext','sourceQuery','sourceURL'])$(id).value='';$('pdf').value='';for(const id of ['pdfstatus','pdfsummary','pdfrows','rows','sourceStatus','unfinished'])$(id).textContent='';$('sourcePanel').hidden=true;$('results').hidden=true;$('entryClear').click();$('progress').textContent='等待輸入';$('ingredients').focus();};
 function render(){
- $('results').hidden=false;for(const status of ['banned','isomer','mixture','clear'])$(status+'Count').textContent=results.filter(r=>r.status===status).length;
+ $('results').hidden=false;$('resultsTable').hidden=resultsCollapsed;$('all').textContent=filter||resultsCollapsed?'顯示全部結果':'收起全部結果';$('all').setAttribute('aria-expanded',String(!resultsCollapsed));for(const status of ['banned','isomer','mixture','clear'])$(status+'Count').textContent=results.filter(r=>r.status===status).length;
  const unresolved=results.filter(r=>r.status==='unresolved').length;const missing=results.filter(r=>r.status==='notfound').length;$('unfinished').textContent=[missing?`未取得成分資料 ${missing} 項`:'',unresolved?`查詢未完成 ${unresolved} 項`:''].filter(Boolean).join('；');
  $('rows').innerHTML=results.filter(r=>!filter||r.status===filter).map((r,index)=>`<tr><td>原始輸入：${esc(r.query)}<small>辨認名稱：${esc([r.zh,r.sourceName].filter(Boolean).join('／')||r.inputName||'名稱未取得')}</small></td><td>${esc(r.formula||'—')}<small>${esc(r.formulaEvidence?'來源欄位：'+r.formulaEvidence:'')}</small><small>${esc((r.cas||[]).join('／')||'—')}</small></td><td><span class="badge">${esc(names[r.status])}</span></td><td>${(r.matches||[]).map(m=>`${esc(m.zh)} · ${esc(m.formula)}<small>${esc(m.cas.join('／'))}</small>`).join('<br>')}<small>${esc(r.reason)}</small><small>${r.fromLibrary?'已使用錄入清單；分類依目前禁用清單重新計算。':r.fromCache?'已使用這個瀏覽器保存的結果':''}</small>${['notfound','unresolved'].includes(r.status)&&r.kind!=='mixture'?`<button class="quiet" data-source="${index}">貼來源網址補查</button><button class="quiet" data-manual="${index}">手動錄入清單</button>`:''}${(r.candidates||[]).map(c=>`<button class="quiet" data-original="${esc(r.query)}" data-cas="${esc(c.cas)}" data-url="${esc(c.url)}">核對 ${esc(c.name)} · ${esc(c.cas)}</button>`).join('')}${(r.attempts||[]).map(a=>`<small>${esc(a.domain)}：${esc(({found:'已取得',notfound:'無匹配結果',unreadable:'未取得可核對資料',error:'搜尋連線失敗',rejected:'找到候選頁，但未取得可核對成分'})[a.status]||a.status)}</small>${(a.details||[]).map(d=>`<small>${esc(d)}</small>`).join('')}`).join('')}${(r.notes||[]).map(n=>`<small>${esc(n)}</small>`).join('')}</td><td>${(r.sources||[]).map(s=>safeURL(s.url)?`<a href="${esc(safeURL(s.url))}" target="_blank" rel="noopener noreferrer">${esc(s.label)} ↗</a>`:`<small>${esc(s.label)}</small>`).join('')}</td></tr>`).join('');
 }
-document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;render();});$('all').onclick=()=>{filter=null;render();};
+document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;resultsCollapsed=false;render();});$('all').onclick=()=>{if(filter){filter=null;resultsCollapsed=false;}else resultsCollapsed=!resultsCollapsed;render();};
 async function runQueries(queries,{retry=false}={}){
  if(running||pdfBusy)return;if(!queries.length){$('progress').textContent=retry?'沒有可重查的未完成項目。':'請先輸入成分。';return;}if(queries.length>200){$('progress').textContent='每批最多 200 項，請分批排查。';return;}
- running=true;cancelled=false;if(!retry)results=[];filter=null;let completed=0,batchError='';$('run').disabled=true;$('stop').disabled=false;document.body.classList.add('busy');await libraryPromise;
+ running=true;cancelled=false;$('example').disabled=true;if(!retry)results=[];filter=null;resultsCollapsed=false;let completed=0,batchError='';$('run').disabled=true;$('stop').disabled=false;document.body.classList.add('busy');await libraryPromise;
  try{await refreshCloud(true);if(!cloudHealthy)throw new Error('無法確認共用清單最新資料');for(let i=0;i<queries.length;i++){
   if(cancelled)break;$('progress').textContent=`查詢 ${i+1}／${queries.length}：${queries[i]}`;
   let record;
   try{record=!$('force').checked&&libraryReady?lookupLibrary(ingredientLibrary,queries[i],bannedRules):null;if(!record&&!cloudActive&&!retry&&!$('force').checked)record=readCache(browserStorage,queries[i],ruleKey);if(!record){const r=await fetch('/api/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:queries[i],force:$('force').checked,sourceHint:findLibrary(ingredientLibrary,queries[i])[0]?.urls.find(u=>/thegoodscentscompany\.com|scentsandflavors\.com/.test(u))||savedSourceURL(browserStorage,queries[i])}),signal:AbortSignal.timeout(65000)});if(!r.ok)throw new Error();record=await r.json();writeCache(browserStorage,record,ruleKey);learnResult(record);}record.inputName=pdfRows.find(x=>x.cas===queries[i])?.name||'';}
   catch{record={query:queries[i],status:'unresolved',failureCode:'READ_FAILED',reason:'查詢服務連線失敗或逾時，請重試。'};}
   const previous=results.findIndex(r=>r.query===queries[i]);if(retry&&previous>=0)results[previous]=record;else results.push(record);completed++;render();
- }}catch(e){batchError=e.message;$('libraryStatus').textContent=e.message;$('progress').textContent='共用清單無法讀取，請重新整理或稍後重試。';}finally{running=false;$('run').disabled=false;$('stop').disabled=true;document.body.classList.remove('busy');$('progress').textContent=batchError?'查詢未開始：'+batchError:`${cancelled?'已停止；':'完成；'}已處理 ${completed}／${queries.length} 項`;} 
+ }}catch(e){batchError=e.message;$('libraryStatus').textContent=e.message;$('progress').textContent='共用清單無法讀取，請重新整理或稍後重試。';}finally{running=false;$('example').disabled=false;$('run').disabled=false;$('stop').disabled=true;document.body.classList.remove('busy');$('progress').textContent=batchError?'查詢未開始：'+batchError:`${cancelled?'已停止；':'完成；'}已處理 ${completed}／${queries.length} 項`;} 
 }
 $('run').onclick=()=>runQueries(inputQueries($('ingredients').value));
 $('retryFailed').onclick=()=>runQueries(results.filter(r=>['notfound','unresolved'].includes(r.status)&&r.kind!=='mixture').map(r=>r.query),{retry:true});
@@ -52,7 +53,7 @@ async function loadOCR(){if(window.Tesseract)return window.Tesseract;await new P
 async function processPDF(file){
  if(!file)return;if(!/\.pdf$/i.test(file.name)&&file.type!=='application/pdf'){$('pdfstatus').textContent='請選擇PDF檔案。';return;}if(running){$('pdfstatus').textContent='請等目前排查完成後再匯入 PDF。';return;}
  if(file.size>20*1024*1024){$('pdfstatus').textContent='PDF 上限為 20 MB，請拆分後匯入。';return;}
- pdfBusy=true;$('run').disabled=true;$('pdf').disabled=true;$('extract').disabled=true;let doc=null,task=null,worker=null;
+ pdfBusy=true;$('example').disabled=true;$('run').disabled=true;$('pdf').disabled=true;$('extract').disabled=true;let doc=null,task=null,worker=null;
  try{
   $('pdfstatus').textContent=`已選取 ${file.name}，正在載入PDF工具；首次OCR需下載辨識模型，請稍候…`;pdfjs=pdfjs||await import('/vendor/pdfjs/pdf.mjs');pdfjs.GlobalWorkerOptions.workerSrc='/vendor/pdfjs/pdf.worker.mjs';
   task=pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer()),cMapUrl:'/vendor/cmaps/',cMapPacked:true,standardFontDataUrl:'/vendor/standard_fonts/',wasmUrl:'/vendor/wasm/'});doc=await task.promise;
@@ -73,7 +74,7 @@ canvas.width=0;canvas.height=0;
   }
   $('pdftext').value=pages.join('\n\n');lastOCRText=$('pdftext').value;await collectCandidates();if(warnings.length)$('pdfstatus').textContent+=' '+warnings.join('；')+'，請仔細核對。';
  }catch(error){$('pdfstatus').textContent=`PDF 辨識未完成：${error.message||'請確認檔案未加密及網路正常。'}`;}
- finally{try{if(worker)await worker.terminate();if(task)await task.destroy();}finally{pdfBusy=false;$('run').disabled=false;$('pdf').disabled=false;$('extract').disabled=false;$('pdf').value='';}}
+ finally{try{if(worker)await worker.terminate();if(task)await task.destroy();}finally{pdfBusy=false;$('example').disabled=false;$('run').disabled=false;$('pdf').disabled=false;$('extract').disabled=false;$('pdf').value='';}}
 };
 
 $('pdf').onchange=()=>processPDF($('pdf').files[0]);
@@ -106,3 +107,10 @@ setInterval(()=>{if(libraryReady&&!running&&!pdfBusy&&document.visibilityState==
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&libraryReady&&!running)refreshCloud().catch(()=>{});});
 
 function openManualEntry(result){$('entryClear').click();manualResultQuery=result.query;const parsed=extractCAS(result.query||'');const cas=result.cas?.[0]||parsed.valid[0]||parsed.invalid[0]||'';const pdfRow=pdfRows.find(r=>r.cas===cas||r.rawCAS===cas);$('entryEN').value=result.en||result.inputName||pdfRow?.name||result.sourceName||(!cas?result.query:'');$('entryCAS').value=cas;$('entryFormula').value=result.formula||'';$('entryURL').value=result.sources?.find(s=>s.url)?.url||'';$('libraryPanel').open=true;$('libraryList').open=false;$('entrySave').textContent='保存到清單並更新此筆結果';$('entryHint').textContent='已帶入這筆PDF／查詢資料。請核對英文名稱與CAS，補上分子式及來源網址；分類由系統計算。';$('entryEN').scrollIntoView({behavior:'smooth',block:'center'});$('entryEN').focus();}
+
+installLanguageSwitcher();
+
+$('backToTop').onclick=()=>window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+const updateTopButton=()=>{$('backToTop').hidden=window.scrollY<350;};
+window.addEventListener('scroll',updateTopButton,{passive:true});updateTopButton();
+$('collapseLibrary').onclick=()=>{$('libraryList').open=false;$('libraryToggle').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'center'});$('libraryToggle').focus();};
