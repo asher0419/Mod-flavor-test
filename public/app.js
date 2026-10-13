@@ -23,14 +23,14 @@ function render(){
 document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;render();});$('all').onclick=()=>{filter=null;render();};
 async function runQueries(queries,{retry=false}={}){
  if(running||pdfBusy)return;if(!queries.length){$('progress').textContent=retry?'沒有可重查的未完成項目。':'請先輸入成分。';return;}if(queries.length>200){$('progress').textContent='每批最多 200 項，請分批排查。';return;}
- running=true;cancelled=false;if(!retry)results=[];filter=null;let completed=0;$('run').disabled=true;$('stop').disabled=false;document.body.classList.add('busy');await libraryPromise;
+ running=true;cancelled=false;if(!retry)results=[];filter=null;let completed=0,batchError='';$('run').disabled=true;$('stop').disabled=false;document.body.classList.add('busy');await libraryPromise;
  try{await refreshCloud(true);if(!cloudHealthy)throw new Error('無法確認共用清單最新資料');for(let i=0;i<queries.length;i++){
   if(cancelled)break;$('progress').textContent=`查詢 ${i+1}／${queries.length}：${queries[i]}`;
   let record;
   try{record=!$('force').checked&&libraryReady?lookupLibrary(ingredientLibrary,queries[i],bannedRules):null;if(!record&&!cloudActive&&!retry&&!$('force').checked)record=readCache(browserStorage,queries[i],ruleKey);if(!record){const r=await fetch('/api/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:queries[i],force:$('force').checked,sourceHint:findLibrary(ingredientLibrary,queries[i])[0]?.urls.find(u=>/thegoodscentscompany\.com|scentsandflavors\.com/.test(u))||savedSourceURL(browserStorage,queries[i])}),signal:AbortSignal.timeout(65000)});if(!r.ok)throw new Error();record=await r.json();writeCache(browserStorage,record,ruleKey);learnResult(record);}record.inputName=pdfRows.find(x=>x.cas===queries[i])?.name||'';}
   catch{record={query:queries[i],status:'unresolved',failureCode:'READ_FAILED',reason:'查詢服務連線失敗或逾時，請重試。'};}
   const previous=results.findIndex(r=>r.query===queries[i]);if(retry&&previous>=0)results[previous]=record;else results.push(record);completed++;render();
- }}catch(e){$('libraryStatus').textContent=e.message;$('progress').textContent='共用清單無法讀取，請重新整理或稍後重試。';}finally{running=false;$('run').disabled=false;$('stop').disabled=true;document.body.classList.remove('busy');$('progress').textContent=`${cancelled?'已停止；':'完成；'}已處理 ${completed}／${queries.length} 項`;} 
+ }}catch(e){batchError=e.message;$('libraryStatus').textContent=e.message;$('progress').textContent='共用清單無法讀取，請重新整理或稍後重試。';}finally{running=false;$('run').disabled=false;$('stop').disabled=true;document.body.classList.remove('busy');$('progress').textContent=batchError?'查詢未開始：'+batchError:`${cancelled?'已停止；':'完成；'}已處理 ${completed}／${queries.length} 項`;} 
 }
 $('run').onclick=()=>runQueries(inputQueries($('ingredients').value));
 $('retryFailed').onclick=()=>runQueries(results.filter(r=>['notfound','unresolved'].includes(r.status)&&r.kind!=='mixture').map(r=>r.query),{retry:true});
@@ -49,12 +49,12 @@ async function collectCandidates(){
 $('extract').onclick=()=>collectCandidates().catch(()=>{$('pdfstatus').textContent='無法整理，請手動複製名稱或 CAS。';});
 let pdfjs=null;
 async function loadOCR(){if(window.Tesseract)return window.Tesseract;await new Promise((ok,no)=>{const s=document.createElement('script');s.src='/vendor/tesseract/tesseract.min.js';s.onload=ok;s.onerror=no;document.head.append(s);});return window.Tesseract;}
-$('pdf').onchange=async()=>{
- const file=$('pdf').files[0];if(!file)return;if(running){$('pdfstatus').textContent='請等目前排查完成後再匯入 PDF。';return;}
+async function processPDF(file){
+ if(!file)return;if(!/\.pdf$/i.test(file.name)&&file.type!=='application/pdf'){$('pdfstatus').textContent='請選擇PDF檔案。';return;}if(running){$('pdfstatus').textContent='請等目前排查完成後再匯入 PDF。';return;}
  if(file.size>20*1024*1024){$('pdfstatus').textContent='PDF 上限為 20 MB，請拆分後匯入。';return;}
  pdfBusy=true;$('run').disabled=true;$('pdf').disabled=true;$('extract').disabled=true;let doc=null,task=null,worker=null;
  try{
-  $('pdfstatus').textContent='正在讀取 PDF…';pdfjs=pdfjs||await import('/vendor/pdfjs/pdf.mjs');pdfjs.GlobalWorkerOptions.workerSrc='/vendor/pdfjs/pdf.worker.mjs';
+  $('pdfstatus').textContent=`已選取 ${file.name}，正在載入PDF工具；首次OCR需下載辨識模型，請稍候…`;pdfjs=pdfjs||await import('/vendor/pdfjs/pdf.mjs');pdfjs.GlobalWorkerOptions.workerSrc='/vendor/pdfjs/pdf.worker.mjs';
   task=pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer()),cMapUrl:'/vendor/cmaps/',cMapPacked:true,standardFontDataUrl:'/vendor/standard_fonts/',wasmUrl:'/vendor/wasm/'});doc=await task.promise;
   if(doc.numPages>30)throw new Error('PDF 超過 30 頁，請拆分後匯入。');
   const mode=$('pdfmode').value;const pages=[];const warnings=[];pdfRows=[];lastOCRText='';$('pdfsummary').textContent='';$('pdfrows').innerHTML='';
@@ -76,6 +76,10 @@ canvas.width=0;canvas.height=0;
  finally{try{if(worker)await worker.terminate();if(task)await task.destroy();}finally{pdfBusy=false;$('run').disabled=false;$('pdf').disabled=false;$('extract').disabled=false;$('pdf').value='';}}
 };
 
+$('pdf').onchange=()=>processPDF($('pdf').files[0]);
+$('pdfDrop').ondragover=event=>{event.preventDefault();};
+$('pdfDrop').ondrop=event=>{event.preventDefault();processPDF(event.dataTransfer.files[0]);};
+
 $('rows').onclick=event=>{const button=event.target.closest('button');if(!button)return;$('sourcePanel').hidden=false;if(button.dataset.source!==undefined){const r=results[Number(button.dataset.source)];sourceOriginalQuery=r.query;$('sourceQuery').value=r.query;$('sourceURL').value='';}else if(button.dataset.cas){sourceOriginalQuery=button.dataset.original||'';$('sourceQuery').value=button.dataset.cas;$('sourceURL').value=button.dataset.url;} $('sourceStatus').textContent='填入正確來源頁，CAS核對通過才採用。';$('sourcePanel').scrollIntoView({behavior:'smooth'});};
 $('checkSource').onclick=async()=>{if(running||pdfBusy)return;const query=$('sourceQuery').value.trim();const sourceURL=$('sourceURL').value.trim();if(!query||!sourceURL){$('sourceStatus').textContent='請填名稱／CAS及來源網址。';return;}$('checkSource').disabled=true;try{const r=await fetch('/api/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query,sourceURL}),signal:AbortSignal.timeout(65000)});if(!r.ok)throw new Error();const record=await r.json();const index=results.findIndex(x=>x.query===(sourceOriginalQuery||query));record.query=sourceOriginalQuery||query;if(index>=0)results[index]=record;else results.push(record);writeCache(browserStorage,record,ruleKey);learnResult(record);$('sourceStatus').textContent=record.reason;render();}catch{$('sourceStatus').textContent='補查連線失敗，請重試。';}finally{$('checkSource').disabled=false;}};
 
@@ -95,7 +99,7 @@ $('entrySave').onclick=async()=>{if(running||pdfBusy){$('libraryStatus').textCon
   const saved=persistLibrary();$('libraryStatus').textContent=cloudActive?'已同步共用清單，分公司下次查詢會取得最新資料。':saved?'僅保存於本機，尚未跨裝置同步。':'未能保存，請立即匯出備份。';$('entryClear').click();
  }catch(e){$('libraryStatus').textContent='未保存：'+e.message;}};
 
-async function refreshCloud(required=false){try{const res=await fetch('/api/library',{cache:'no-store',signal:AbortSignal.timeout(12000)});const state=await res.json();if(!res.ok){if(state.configured===false){cloudActive=false;cloudHealthy=true;$('cloudStatus').textContent='尚未設定共用資料庫：目前僅為本機清單，不會跨裝置同步。';return;}throw new Error(state.error||'共用清單連線失敗');}cloudActive=true;cloudHealthy=true;cloudRevision=state.revision;ingredientLibrary=mergeRows([],state.rows).records;saveLibrary(browserStorage,ingredientLibrary,bannedRules);renderLibrary();$('cloudStatus').textContent=`共用清單已連線 · 版本${cloudRevision} · 更新時間${new Date(state.updatedAt).toLocaleString()}`;}catch(e){cloudHealthy=false;$('cloudStatus').textContent='同步失敗，無法確認最新清單；請稍後重试。';if(required||cloudActive)throw e;}}
+async function refreshCloud(required=false){try{const res=await fetch('/api/library',{cache:'no-store',signal:AbortSignal.timeout(12000)});const state=await res.json();if(!res.ok){if(state.configured===false){cloudActive=false;cloudHealthy=true;$('cloudStatus').textContent='尚未設定共用資料庫：目前僅為本機清單，不會跨裝置同步。';return;}throw new Error(state.error||'共用清單連線失敗');}cloudActive=true;cloudHealthy=true;cloudRevision=state.revision;ingredientLibrary=mergeRows([],state.rows).records;saveLibrary(browserStorage,ingredientLibrary,bannedRules);renderLibrary();$('cloudStatus').textContent=`共用清單已連線 · 版本${cloudRevision} · 更新時間${new Date(state.updatedAt).toLocaleString()}`;}catch(e){cloudHealthy=false;$('cloudStatus').textContent='同步失敗：'+e.message+'。請檢查Vercel環境變數後重新部署。';if(required||cloudActive)throw e;}}
 async function commitCloud(rows,replaceCAS=null,revision=cloudRevision){if(!rows.length)return;const token=$('teamKey').value;if(!token)throw new Error('請先輸入清單管理密碼；查詢不需要密碼。');const res=await fetch('/api/library',{method:'POST',headers:{'Content-Type':'application/json','x-library-token':token},body:JSON.stringify({rows,revision,replaceCAS}),signal:AbortSignal.timeout(12000)});const state=await res.json();if(!res.ok)throw new Error(state.error||'共用清單未保存');cloudRevision=state.revision;ingredientLibrary=mergeRows([],state.rows).records;renderLibrary();$('cloudStatus').textContent=`已同步共用清單 · 版本${cloudRevision}`;}
 $('cloudReload').onclick=()=>refreshCloud(cloudActive).catch(e=>{$('libraryStatus').textContent=e.message;});
 setInterval(()=>{if(libraryReady&&!running&&!pdfBusy&&document.visibilityState==='visible')refreshCloud().catch(()=>{});},30000);
