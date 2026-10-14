@@ -90,3 +90,9 @@ V12尚未部署，本地43項測試及build／語法检查通過；真實Upstash
 待查成分區支援 PDF（含 OCR）、Word DOCX、Excel XLSX／XLS、CSV。Excel 讀取所有工作表；Word 保留表格欄位。舊版 DOC 請轉 DOCX。Word 內嵌圖片需轉 PDF 後使用 OCR。
 只有 FEMA 時，保留原始名稱與編號，依 TGSC／Scents and Flavors 來源的 FEMA 欄位核對 CAS 與分子式；不採用搜尋摘要作為確認依據。未核對成功者維持待確認。FEMA 會附在結果 CSV。Medium Chain Triglyceride 按混合物處理。
 更新 GitHub 程式後重新部署 Vercel；沿用 TAVILY_API_KEY 及既有共用清單設定，不需新增金鑰。npm install / npm run build 會準備文件讀取工具。
+
+## v20：FEMA 本地對照資料庫（以第70版清單為基礎）
+原始第70版212筆完整保留，147筆依CAS補入FEMA，65筆暫無匹配。附「單體香料排查清單_第70版_FEMA補充.csv」，可以匯入既有共用清單；有資料衝突時不覆蓋，請核對後再保存。
+內建IOFI Global Reference List（2026-04-29版）擷取的2,512筆CAS/FEMA對照，涉及2,447個不同FEMA編號。來源 https://www.flavordata.com/grl/download/cds 。此資料用於識別編號，不當作本產品使用許可。
+先查現有清單FEMA與分子式，再查內建對照CAS；缺少分子式才上網。裸四位數也可輸入。多CAS候選只有名稱與已確認資料精確對應時可選定，否則待確認；OCR拼錯名稱不會猜選。舊共用清單讀取時可依內建對照顯示FEMA，下一次保存／匯入會記錄欄位。成功線上查詢會保存FEMA以供後續查詢。
+部署方式：更新GitHub，重新部署Vercel；如共用資料庫已有資料，於清單區匯入附帶CSV並輸入管理密碼保存。沿用現有環境變數。本程式包版本v20與共用清單版本70是不同的版本計數，不強制改動既有共用版本號。

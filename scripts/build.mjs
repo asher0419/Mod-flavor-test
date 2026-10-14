@@ -18,3 +18,5 @@ await mkdir('public/vendor/mammoth',{recursive:true});
 await cp('node_modules/mammoth/mammoth.browser.min.js','public/vendor/mammoth/mammoth.browser.min.js');
 await mkdir('public/vendor/sheetjs',{recursive:true});
 await cp('node_modules/xlsx/dist/xlsx.full.min.js','public/vendor/sheetjs/xlsx.full.min.js');
+
+for(const name of ['fema-catalog.js','fema-index.js','ingredient-library.js'])await cp('public/'+name,'lib/'+name);

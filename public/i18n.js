@@ -1,4 +1,6 @@
 const entries=[
+['匯出清單CSV（含FEMA）','Export list CSV (including FEMA)','リストをCSV出力（FEMA含む）'],
+['FEMA（四位數；多個以分號隔開）','FEMA (four digits; separate with semicolons)','FEMA（4桁、複数はセミコロン区切り）'],
 ['待確認','Needs confirmation','要確認'],
 ['待確認（未取得成分資料）','Needs confirmation (data unavailable)','要確認（成分データ未取得）'],
 ['從廠商 PDF／Word／Excel 擷取成分','Extract ingredients from supplier PDF / Word / Excel','取引先のPDF／Word／Excelから成分を抽出'],
