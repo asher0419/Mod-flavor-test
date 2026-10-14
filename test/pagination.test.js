@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {libraryPage} from '../public/library-pagination.js';import {translate} from '../public/i18n.js';
+test('empty, exact boundary and partial final pages stay in bounds',()=>{assert.deepEqual(libraryPage(0,8),{page:0,pages:1,start:0,end:0,total:0});assert.equal(libraryPage(100,1).page,0);assert.deepEqual(libraryPage(1005,10),{page:10,pages:11,start:1000,end:1005,total:1005});assert.equal(libraryPage(201,999).page,2);assert.equal(libraryPage(201,-1).page,0);});
+test('refresh shrinking the list clamps page and preserves absolute edit indices',()=>{const page=libraryPage(212,1);const indices=Array.from({length:page.end-page.start},(_,i)=>page.start+i);assert.equal(indices[0],100);assert.equal(indices.at(-1),199);assert.equal(libraryPage(80,page.page).page,0);});
+test('page status and navigation translate into English and Japanese',()=>{assert.equal(translate('第一頁','en'),'First');assert.equal(translate('最後一頁','ja'),'最後のページ');assert.equal(translate('第 2／11 頁 · 顯示 101–200／1005 筆','en'),'Page 2/11 · Showing 101–200 of 1005');});

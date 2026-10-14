@@ -1,4 +1,10 @@
 const entries=[
+['第一頁','First','最初のページ'],
+['上一頁','Previous','前のページ'],
+['下一頁','Next','次のページ'],
+['最後一頁','Last','最後のページ'],
+['清單分頁','List pagination','リストのページ切り替え'],
+['尚未錄入資料','No entries yet','登録データなし'],
 ['匯出清單CSV（含FEMA）','Export list CSV (including FEMA)','リストをCSV出力（FEMA含む）'],
 ['FEMA（四位數；多個以分號隔開）','FEMA (four digits; separate with semicolons)','FEMA（4桁、複数はセミコロン区切り）'],
 ['待確認','Needs confirmation','要確認'],
@@ -139,6 +145,7 @@ entries.push(
 );
 const dictionary=new Map(entries.map(([zh,en,ja])=>[zh,{en,ja}]));
 const rules=[
+[/^第 (\d+)／(\d+) 頁 · 顯示 (\d+)–(\d+)／(\d+) 筆$/,m=>[`Page ${m[1]}/${m[2]} · Showing ${m[3]}–${m[4]} of ${m[5]}`,`${m[1]}/${m[2]}ページ · ${m[5]}件中${m[3]}–${m[4]}件を表示`]],
  [/^匯入完成：新增(\d+)筆、合併(\d+)筆、待核對(\d+)筆。(.*)$/,m=>[`Imported: ${m[1]} added, ${m[2]} merged, ${m[3]} need review. ${m[4].replace('已同步至共用清單。','Saved to the shared list.').replace('僅保存於本機，尚未同步。','Saved locally only, not synchronized.').replace('保存失敗，請立即匯出備份。','Save failed. Export a backup now.')}`,`取り込み完了：追加${m[1]}件、統合${m[2]}件、要確認${m[3]}件。${m[4].replace('已同步至共用清單。','共有リストに同期しました。').replace('僅保存於本機，尚未同步。','この端末のみに保存。未同期です。').replace('保存失敗，請立即匯出備份。','保存失敗。バックアップを出力してください。')}`]],
  [/^核對 (.*) · (\d{2,7}-\d{2}-\d)$/,m=>[`Check ${m[1]} · ${m[2]}`,`${m[1]}を確認 · ${m[2]}`]],
  [/^(.+)：找到 (\d+) 個符合CAS的成分連結$/,m=>[`${m[1]}: ${m[2]} matching CAS ingredient links found`,`${m[1]}：一致するCASの成分リンク${m[2]}件`]],
