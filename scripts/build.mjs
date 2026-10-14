@@ -13,3 +13,8 @@ await cp('lib/chemistry.js','public/chemistry.js');
 await writeFile('public/banned.json',JSON.stringify(data.banned));
 
 await cp('public/ingredient-seed.json','lib/ingredient-seed.json');
+
+await mkdir('public/vendor/mammoth',{recursive:true});
+await cp('node_modules/mammoth/mammoth.browser.min.js','public/vendor/mammoth/mammoth.browser.min.js');
+await mkdir('public/vendor/sheetjs',{recursive:true});
+await cp('node_modules/xlsx/dist/xlsx.full.min.js','public/vendor/sheetjs/xlsx.full.min.js');

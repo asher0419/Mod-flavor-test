@@ -1,4 +1,11 @@
 const entries=[
+['待確認','Needs confirmation','要確認'],
+['待確認（未取得成分資料）','Needs confirmation (data unavailable)','要確認（成分データ未取得）'],
+['從廠商 PDF／Word／Excel 擷取成分','Extract ingredients from supplier PDF / Word / Excel','取引先のPDF／Word／Excelから成分を抽出'],
+['選擇文件','Choose document','ファイルを選択'],
+['整理成分到待查清單','Add ingredients to screening list','成分を確認リストに追加'],
+['選擇PDF、Word（DOCX）、Excel（XLSX／XLS）或CSV，或將文件拖曳到此區域。OCR處理中會顯示進度，完成後請按「開始排查」。','Choose or drop a PDF, DOCX, XLSX, XLS or CSV. OCR progress is shown; start screening after extraction.','PDF、DOCX、XLSX、XLS、CSVを選択またはドラッグしてください。OCR完了後にチェックを開始してください。'],
+['CAS 有檢查碼驗證；沒有CAS時保留FEMA與名稱，查到可核對的CAS及分子式後才判定；查不到則待確認。','CAS checksums are validated. Names and FEMA numbers are retained without CAS; classification requires verified CAS and formula. Unverified entries need confirmation.','CASのチェック桁を検証します。CASがない場合は名称とFEMAを保存し、CASと分子式の確認後に判定します。未確認の項目は要確認となります。'],
 ['香料禁用與異構物排查','Fragrance ingredient screening','香料の禁止物質・異性体チェック'],
 ['◈ 香料排查','◈ Ingredient screening','◈ 香料チェック'],
 ['介面語言','Interface language','表示言語'],

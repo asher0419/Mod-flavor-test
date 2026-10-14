@@ -1,3 +1,4 @@
+import {parseDocumentText,readDocument} from './document-import.js';
 import {installLanguageSwitcher} from './i18n.js';
 import {inputQueries,extractCAS,csvCell} from './util.js';
 import {readCache,writeCache,savedSourceURL} from './cache.js';
@@ -5,7 +6,7 @@ import {recognizeTable,summarizeRows} from './ocr-table.js';
 import {loadLibrary,saveLibrary,mergeRows,lookupLibrary,learnedRow,libraryCSV,parseCSV,findLibrary,normalizeRow} from './ingredient-library.js';
 import {readXLSX} from './xlsx-reader.js';
 const browserStorage=(()=>{try{return localStorage;}catch{return null;}})();
-const $=id=>document.getElementById(id);const names={banned:'禁用物質',isomer:'有禁用物質的異構物',clear:'沒問題',mixture:'混合物',unresolved:'查詢未完成',notfound:'未取得成分資料'};
+const $=id=>document.getElementById(id);const names={banned:'禁用物質',isomer:'有禁用物質的異構物',clear:'沒問題',mixture:'混合物',unresolved:'待確認',notfound:'待確認（未取得成分資料）'};
 let results=[],running=false,cancelled=false,filter=null,pdfBusy=false,pdfRows=[],lastOCRText='',ruleKey='',sourceOriginalQuery='',manualResultQuery='',resultsCollapsed=false;
 let ingredientLibrary=[],bannedRules=[],libraryReady=false,cloudActive=false,cloudHealthy=false,cloudRevision=0,editingCloudCAS=null,editingRevision=null;
 const libraryPromise=Promise.all([fetch('/ingredient-seed.json').then(r=>r.json()),fetch('/banned.json').then(r=>r.json())]).then(([seed,banned])=>{bannedRules=banned;ingredientLibrary=loadLibrary(browserStorage,seed);libraryReady=true;renderLibrary();return refreshCloud();}).catch(()=>{$('libraryStatus').textContent='清單載入失敗，請重新整理；目前仍可網路查詢。';});
@@ -36,14 +37,14 @@ async function runQueries(queries,{retry=false}={}){
 $('run').onclick=()=>runQueries(inputQueries($('ingredients').value));
 $('retryFailed').onclick=()=>runQueries(results.filter(r=>['notfound','unresolved'].includes(r.status)&&r.kind!=='mixture').map(r=>r.query),{retry:true});
 $('stop').onclick=()=>{cancelled=true;$('progress').textContent='目前這一筆完成後停止。';};
-$('export').onclick=()=>{const header=['輸入','辨認名称','CAS','分子式','分類','對應禁用物質','判定原因','來源','查詢時間'];const lines=results.map(r=>[r.query,[r.zh,r.sourceName].filter(Boolean).join(' / ')||r.inputName||'名稱未取得',(r.cas||[]).join(';'),r.formula,names[r.status],(r.matches||[]).map(m=>`${m.zh} (${m.formula})`).join(';'),[r.reason,...(r.notes||[])].join(' '),(r.sources||[]).map(s=>s.url||s.label).join(';'),new Date().toISOString()]);const blob=new Blob(['\uFEFF'+[header,...lines].map(row=>row.map(csvCell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='香料排查結果.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};
+$('export').onclick=()=>{const header=['輸入','FEMA','辨認名称','CAS','分子式','分類','對應禁用物質','判定原因','來源','查詢時間'];const lines=results.map(r=>[r.query,r.fema||r.query?.match(/FEMA\s*(\d{4})/i)?.[1]||'',[r.zh,r.sourceName].filter(Boolean).join(' / ')||r.inputName||'名稱未取得',(r.cas||[]).join(';'),r.formula,names[r.status],(r.matches||[]).map(m=>`${m.zh} (${m.formula})`).join(';'),[r.reason,...(r.notes||[])].join(' '),(r.sources||[]).map(s=>s.url||s.label).join(';'),new Date().toISOString()]);const blob=new Blob(['\uFEFF'+[header,...lines].map(row=>row.map(csvCell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='香料排查結果.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};
 async function collectCandidates(){
  const text=$('pdftext').value;const {valid,invalid}=extractCAS(text);let candidates=valid;
  if(pdfRows.length&&text===lastOCRText){
-  const summary=summarizeRows(pdfRows);candidates=pdfRows.map(r=>r.cas||r.name).filter(Boolean);
+  const summary=summarizeRows(pdfRows);candidates=pdfRows.map(r=>r.cas||r.query||(r.fema?`${r.name} (FEMA ${r.fema})`:r.name)).filter(Boolean);
   $('pdfsummary').textContent=`文件列數 ${summary.rows}｜有效 CAS 列 ${summary.validRows}｜不重複 CAS ${summary.unique}｜重複 CAS 列 ${summary.duplicates}｜待核對 ${summary.unresolved}`;
-  $('pdfrows').innerHTML=pdfRows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td>${esc(r.cas||r.rawCAS||'未讀出')}</td><td>${r.needsReview?'需核對':pdfRows.findIndex(x=>x.cas===r.cas)<i?'重複 CAS':'已辨識'}</td></tr>`).join('');
- }else if(!valid.length){const catalog=await (await fetch('/catalog.json')).json();candidates=[...new Set(catalog.filter(r=>r.zh&&text.includes(r.zh)||r.en&&text.toLowerCase().includes(r.en.toLowerCase())).map(r=>r.cas[0]||r.zh||r.en))];}
+  $('pdfrows').innerHTML=pdfRows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td>${esc(r.cas||r.rawCAS||(r.fema?'FEMA '+r.fema:'未讀出'))}</td><td>${r.needsReview?'需核對':pdfRows.findIndex(x=>x.cas===r.cas)<i?'重複 CAS':'已辨識'}</td></tr>`).join('');
+ }else {pdfRows=parseDocumentText(text);lastOCRText=text;if(pdfRows.length)return collectCandidates();}
  const existing=pdfRows.length&&text===lastOCRText?'':$('ingredients').value.trim();$('ingredients').value=[...inputQueries(existing),...candidates].join('\n');
  $('pdfstatus').textContent=`保留 ${candidates.length} 列辨识結果，開始排查時相同 CAS 合併查詢。${invalid.length?'檢查碼不符：'+invalid.join('、')+'。':''}請核對下方逐列清單。`;
 }
@@ -67,19 +68,26 @@ async function processPDF(file){
     const original=page.getViewport({scale:1});const viewport=page.getViewport({scale:Math.min(4,3600/Math.max(original.width,original.height))});const canvas=document.createElement('canvas');canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);const context=canvas.getContext('2d');
     await page.render({canvasContext:context,viewport,background:'rgb(255,255,255)'}).promise;const table=await recognizeTable(canvas,worker,(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c;},(i,total)=>{$('pdfstatus').textContent=`表格 OCR 第 ${n} 頁，第 ${i}／${total} 列…`;});
     if(table&&table.length){pdfRows.push(...table.map(r=>({...r,page:n})));text=table.map((r,i)=>`${i+1} | ${r.name} | ${r.cas||r.rawCAS||'[未讀出 CAS]'}`).join('\n');}
-    else{await worker.setParameters({tessedit_pageseg_mode:'6',tessedit_char_whitelist:''});const result=await worker.recognize(canvas);text=result.data.text;if(result.data.confidence<75)warnings.push(`第 ${n} 頁 OCR 信心較低`);}
+    else{await worker.setParameters({tessedit_pageseg_mode:'3',tessedit_char_whitelist:''});const result=await worker.recognize(canvas);text=result.data.text;if(result.data.confidence<75)warnings.push(`第 ${n} 頁 OCR 信心較低`);}
 canvas.width=0;canvas.height=0;
    }
    pages.push(`【第 ${n} 頁】\n${text}`);page.cleanup();
   }
-  $('pdftext').value=pages.join('\n\n');lastOCRText=$('pdftext').value;await collectCandidates();if(warnings.length)$('pdfstatus').textContent+=' '+warnings.join('；')+'，請仔細核對。';
+  $('pdftext').value=pages.join('\n\n');pdfRows=pdfRows.length?pdfRows:parseDocumentText($('pdftext').value);lastOCRText=$('pdftext').value;await collectCandidates();if(warnings.length)$('pdfstatus').textContent+=' '+warnings.join('；')+'，請仔細核對。';
  }catch(error){$('pdfstatus').textContent=`PDF 辨識未完成：${error.message||'請確認檔案未加密及網路正常。'}`;}
  finally{try{if(worker)await worker.terminate();if(task)await task.destroy();}finally{pdfBusy=false;$('example').disabled=false;$('run').disabled=false;$('pdf').disabled=false;$('extract').disabled=false;$('pdf').value='';}}
 };
 
-$('pdf').onchange=()=>processPDF($('pdf').files[0]);
+async function processDocument(file){
+ if(!file||running||pdfBusy)return;
+ if(/\.pdf$/i.test(file.name))return processPDF(file);
+ pdfBusy=true;for(const id of ['example','run','pdf','extract'])$(id).disabled=true;
+ try{$('pdfstatus').textContent='讀取文件中…';const text=await readDocument(file);pdfRows=parseDocumentText(text);lastOCRText=text;$('pdftext').value=text;await collectCandidates();if(/\.docx$/i.test(file.name))$('pdfstatus').textContent+=' Word內嵌圖片未辨識；若成分是圖片，請轉PDF使用OCR。';}
+ catch(e){$('pdfstatus').textContent=e.message;}finally{pdfBusy=false;for(const id of ['example','run','pdf','extract'])$(id).disabled=false;$('pdf').value='';}
+}
+$('pdf').onchange=()=>processDocument($('pdf').files[0]);
 $('pdfDrop').ondragover=event=>{event.preventDefault();};
-$('pdfDrop').ondrop=event=>{event.preventDefault();processPDF(event.dataTransfer.files[0]);};
+$('pdfDrop').ondrop=event=>{event.preventDefault();processDocument(event.dataTransfer.files[0]);};
 
 $('rows').onclick=event=>{const button=event.target.closest('button');if(!button)return;if(button.dataset.manual!==undefined){openManualEntry(results[Number(button.dataset.manual)]);return;}$('sourcePanel').hidden=false;if(button.dataset.source!==undefined){const r=results[Number(button.dataset.source)];sourceOriginalQuery=r.query;$('sourceQuery').value=r.query;$('sourceURL').value='';}else if(button.dataset.cas){sourceOriginalQuery=button.dataset.original||'';$('sourceQuery').value=button.dataset.cas;$('sourceURL').value=button.dataset.url;} $('sourceStatus').textContent='填入正確來源頁，CAS核對通過才採用。';$('sourcePanel').scrollIntoView({behavior:'smooth'});};
 $('checkSource').onclick=async()=>{if(running||pdfBusy)return;const query=$('sourceQuery').value.trim();const sourceURL=$('sourceURL').value.trim();if(!query||!sourceURL){$('sourceStatus').textContent='請填名稱／CAS及來源網址。';return;}$('checkSource').disabled=true;try{const r=await fetch('/api/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query,sourceURL}),signal:AbortSignal.timeout(65000)});if(!r.ok)throw new Error();const record=await r.json();const index=results.findIndex(x=>x.query===(sourceOriginalQuery||query));record.query=sourceOriginalQuery||query;if(index>=0)results[index]=record;else results.push(record);writeCache(browserStorage,record,ruleKey);learnResult(record);$('sourceStatus').textContent=record.reason;render();}catch{$('sourceStatus').textContent='補查連線失敗，請重試。';}finally{$('checkSource').disabled=false;}};

@@ -85,3 +85,8 @@ V12尚未部署，本地43項測試及build／語法检查通過；真實Upstash
 42個Node測試及build／JS語法檢查通過。共享同步、版本衝突用記憶體Redis替身測試，尚未連接使用者資料庫或完成公開網站V11驗證。Excel值及未改欄位已核對；預覽環境缺中文字型，中文顯示請用Excel確認。
 
 資料庫設定參考：https://vercel.com/docs/marketplace-storage 、https://upstash.com/docs/redis/features/restapi
+
+## v19：FEMA 與廠商文件匯入
+待查成分區支援 PDF（含 OCR）、Word DOCX、Excel XLSX／XLS、CSV。Excel 讀取所有工作表；Word 保留表格欄位。舊版 DOC 請轉 DOCX。Word 內嵌圖片需轉 PDF 後使用 OCR。
+只有 FEMA 時，保留原始名稱與編號，依 TGSC／Scents and Flavors 來源的 FEMA 欄位核對 CAS 與分子式；不採用搜尋摘要作為確認依據。未核對成功者維持待確認。FEMA 會附在結果 CSV。Medium Chain Triglyceride 按混合物處理。
+更新 GitHub 程式後重新部署 Vercel；沿用 TAVILY_API_KEY 及既有共用清單設定，不需新增金鑰。npm install / npm run build 會準備文件讀取工具。
